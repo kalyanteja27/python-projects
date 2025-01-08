@@ -1,0 +1,36 @@
+# Mysql Connected GUI Registration Form!
+
+from tkinter import *
+import tkinter.messagebox as msg
+root=Tk()
+root.title("Registration form")
+root.geometry("700x700")
+root.config(bg="#4CA4A8")
+def register_data():
+      import pymysql
+      mydb=pymysql.connect(host="localhost",port=3306,user='root',password='root',database='projects')
+      mycursor=mydb.cursor()
+      username=user_entry.get()
+      password =password_entry.get()
+      email  = email_entry.get()
+      password1=int(password)
+      mycursor.execute("insert into registeration values(%s ,%s, %s)",(username,password1,email))
+      mydb.commit()
+      msg.showinfo("Registration","registered successfully")
+l1=Label(text="REGISTRATION  PAGE",fg="black",font=('arial',20))
+l1.pack()
+l1=Label(text="Username :",bg="#4CA4A8",fg="black",font=('arial',20))
+l1.place(x=30,y=130)
+user_entry=Entry(font=('arial',20))
+user_entry.place(x=200,y=130)
+l2=Label(text="Password :",bg="#4CA4A8",fg="black",font=('arial',20))
+l2.place(x=30,y=250)
+password_entry=Entry(font=('arial',20))
+password_entry.place(x=200,y=250)
+l2=Label(text="Email :",bg="#4CA4A8",fg="black",font=('arial',20))
+l2.place(x=30,y=330)
+email_entry=Entry(font=('arial',20))
+email_entry.place(x=200,y=330)
+l3=Button(text="Register",bg="#4CA4A8",fg="black",font=('arial',20),command=register_data)
+l3.place(x=500,y=500)
+root.mainloop()
